@@ -3,6 +3,8 @@ package com.nativemoduletest;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import net.no_mad.tts.TextToSpeechPackage;
+import com.wmjmc.reactspeech.VoicePackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -24,6 +26,8 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           // Register your package here
           new MainReactPackage(),
+          new TextToSpeechPackage(),
+          new VoicePackage(),
           new SpeechToTextPackage()
       );
     }

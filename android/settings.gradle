@@ -1,3 +1,9 @@
 rootProject.name = 'nativeModuleTest'
 
+include ':react-native-tts'
+project(':react-native-tts').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-tts/android')
+
+include ':VoiceModule', ':app'
+project(':VoiceModule').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-android-voice')
+
 include ':app'

@@ -17,6 +17,8 @@ import {
   ScrollView,
   NativeModules
 } from 'react-native';
+import Tts from 'react-native-tts';
+import SpeechAndroid from 'react-native-android-voice';
 
 const { SpeechToText } = NativeModules;
 const {height, width} = Dimensions.get('window')
@@ -29,12 +31,35 @@ export default class nativeModuleTest extends Component {
     }
   }
 
-  handleSpeech() {
+  async handleSpeech() {
     // Write method to handle speech here
-    SpeechToText.writeSpeech()
-    .then(result => {
-      this.setState({notes: result})
-    })
+    // Tts.setDefaultLanguage('in-ID');
+    // Tts.voices().then(voices => console.log(voices));
+    // SpeechToText.writeSpeech()
+    // .then(result => {
+    //   this.setState({notes: result})
+    //   // Tts.speak(result);
+    // })
+    try{
+        //More Locales will be available upon release. 
+        var spokenText = await SpeechAndroid.startSpeech("Speak yo", SpeechAndroid.GERMAN);
+        this.setState({notes: spokenText})
+        // ToastAndroid.show(spokenText , ToastAndroid.LONG);
+    
+      }catch(error){
+        switch(error){
+            case SpeechAndroid.E_VOICE_CANCELLED:
+                ToastAndroid.show("Voice Recognizer cancelled" , ToastAndroid.LONG);
+                break;
+            case SpeechAndroid.E_NO_MATCH:
+                ToastAndroid.show("No match for what you said" , ToastAndroid.LONG);
+                break;
+            case SpeechAndroid.E_SERVER_ERROR:
+                ToastAndroid.show("Google Server Error" , ToastAndroid.LONG);
+                break;
+            /*And more errors that will be documented on Docs upon release*/
+        }
+    }
   }
 
   render() {
