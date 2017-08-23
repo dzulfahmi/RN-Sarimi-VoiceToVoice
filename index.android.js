@@ -64,8 +64,8 @@ export default class nativeModuleTest extends Component {
         } else if (this.state.languageFrom === 'de') {
           var spokenText = await SpeechAndroid.startSpeech("Speak yo", SpeechAndroid.GERMAN);
           this.setState({notes: spokenText})
-        } else if (this.state.languageFrom === 'du') {
-          var spokenText = await SpeechAndroid.startSpeech("Speak yo", SpeechAndroid.DUTCH);
+        } else if (this.state.languageFrom === 'ko') {
+          var spokenText = await SpeechAndroid.startSpeech("Speak yo", SpeechAndroid.KOREA);
           this.setState({notes: spokenText})
         } else {
           var spokenText = await SpeechAndroid.startSpeech("Speak yo", SpeechAndroid.INDONESIAN);
@@ -96,8 +96,8 @@ export default class nativeModuleTest extends Component {
             } else if (this.state.languageTo === 'de') {
               Tts.setDefaultLanguage('de-DE');
               Tts.speak(resultText);
-            } else if (this.state.languageTo === 'du') {
-              Tts.setDefaultLanguage('du-DU');
+            } else if (this.state.languageTo === 'ko') {
+              Tts.setDefaultLanguage('ko-KR');
               Tts.speak(resultText);
             } else {
               Tts.setDefaultLanguage('en-IE');
@@ -132,7 +132,7 @@ export default class nativeModuleTest extends Component {
           animationType={"slide"}
           transparent={false}
           visible={this.state.modalVisible}
-          onRequestClose={() => {alert("Modal has been closed.")}}
+          onRequestClose={() => this.setModalVisible(!this.state.modalVisible)}
           >
          <View style={{margin: 22}}>
           <View>
@@ -162,7 +162,7 @@ export default class nativeModuleTest extends Component {
                 <Picker.Item label="France" value="fr" />
                 <Picker.Item label="Japanese" value="ja" />
                 <Picker.Item label="Germany" value="de" />
-                <Picker.Item label="Dutch" value="du" />
+                <Picker.Item label="Korean" value="ko" />
               </Picker>  
             </View>
           </View>
@@ -182,7 +182,7 @@ export default class nativeModuleTest extends Component {
                 <Picker.Item label="France" value="fr" />
                 <Picker.Item label="Japanese" value="ja" />
                 <Picker.Item label="Germany" value="de" />
-                <Picker.Item label="Dutch" value="du" />
+                <Picker.Item label="Korean" value="ko" />
               </Picker>  
             </View>
           </View>
@@ -193,11 +193,7 @@ export default class nativeModuleTest extends Component {
             </TouchableOpacity>
           </View>
           <View>
-<<<<<<< HEAD
             <Button style={{borderRadius: 10}} onPress={() => this.setModalVisible(true)} title={'Detail'}/>
-=======
-            <Button style={{borderRadius: 10}} onPress={() => console.log('Button Pressed')} title={'Detail'}/>
->>>>>>> 61bea33115abab87d51eab508a10499d7ed2d889
           </View>
         </View>
       </View>
