@@ -29,7 +29,8 @@ export default class nativeModuleTest extends Component {
     super(props)
     this.state = {
       notes: '',
-      language: ''
+      languageFrom: '',
+      languageTo: ''
     }
   }
 
@@ -50,17 +51,38 @@ export default class nativeModuleTest extends Component {
               <Text style={{padding: 10, fontSize: 42}}>
                 {this.state.notes}
               </Text>
-              <View style={{ alignItems:'center'}}>
-                <Picker
-                  style={{ color: '#757575', width: 190 }}
-
-                  mode="dropdown"
-                >
-                  <Picker.Item label="Indonesian" value="Indonesian" />
-                  <Picker.Item label="Chinese" value="Chinese" />
-                  <Picker.Item label="English" value="English" />
-                </Picker>  
+              <View>
+                <Text>From : </Text>
+                <View style={{ alignItems:'center'}}>
+                  <Picker
+                    selectedValue={this.state.languageFrom}
+                    style={{ color: '#757575', width: 190 }}
+                    onValueChange={(itemValue, itemIndex) => this.setState({languageFrom: itemValue})}
+                    mode="dropdown"
+                  >
+                    <Picker.Item label="Indonesian" value="Indonesian" />
+                    <Picker.Item label="Chinese" value="Chinese" />
+                    <Picker.Item label="English" value="English" />
+                  </Picker>  
+                </View>
               </View>
+              
+              <View>
+                <Text>To : </Text>
+                <View style={{ alignItems:'center'}}>
+                  <Picker
+                    selectedValue={this.state.languageTo}
+                    style={{ color: '#757575', width: 190 }}
+                    onValueChange={(itemValue, itemIndex) => this.setState({languageTo: itemValue})}
+                    mode="dropdown"
+                  >
+                    <Picker.Item label="Indonesian" value="Indonesian" />
+                    <Picker.Item label="Chinese" value="Chinese" />
+                    <Picker.Item label="English" value="English" />
+                  </Picker>  
+                </View>
+              </View>
+              
               <View style={{paddingBottom:30, alignItems:'center'}}>
                 <TouchableOpacity onPress={() => this.handleSpeech()}>
                   <Image source={image1} style={{height:100, width:100 }}/>
