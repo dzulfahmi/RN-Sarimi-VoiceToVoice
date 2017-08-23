@@ -96,8 +96,8 @@ export default class nativeModuleTest extends Component {
             } else if (this.state.languageTo === 'de') {
               Tts.setDefaultLanguage('de-DE');
               Tts.speak(resultText);
-            } else if (this.state.languageTo === '') {
-              Tts.setDefaultLanguage('');
+            } else if (this.state.languageTo === 'du') {
+              Tts.setDefaultLanguage('du-DU');
               Tts.speak(resultText);
             } else {
               Tts.setDefaultLanguage('en-IE');
@@ -148,7 +148,7 @@ export default class nativeModuleTest extends Component {
         </Modal>
         <View style={{flex:1, justifyContent: 'space-between', paddingBottom: 50, paddingTop: 30, paddingLeft: 30, paddingRight: 30}}>
           <View>
-            <Text>From : </Text>
+            <Text>From</Text>
             <View style={{ alignItems:'center'}}>
               <Picker
                 selectedValue={this.state.languageFrom}
@@ -168,7 +168,7 @@ export default class nativeModuleTest extends Component {
           </View>
           
           <View>
-            <Text>To : </Text>
+            <Text>To</Text>
             <View style={{ alignItems:'center'}}>
               <Picker
                 selectedValue={this.state.languageTo}
@@ -193,7 +193,11 @@ export default class nativeModuleTest extends Component {
             </TouchableOpacity>
           </View>
           <View>
+<<<<<<< HEAD
             <Button style={{borderRadius: 10}} onPress={() => this.setModalVisible(true)} title={'Detail'}/>
+=======
+            <Button style={{borderRadius: 10}} onPress={() => console.log('Button Pressed')} title={'Detail'}/>
+>>>>>>> 61bea33115abab87d51eab508a10499d7ed2d889
           </View>
         </View>
       </View>
