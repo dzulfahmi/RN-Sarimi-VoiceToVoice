@@ -31,8 +31,8 @@ export default class nativeModuleTest extends Component {
     super(props)
     this.state = {
       notes: '',
-      languageFrom: 'Indonesian',
-      languageTo: 'English'
+      languageFrom: 'id',
+      languageTo: 'en'
     }
   }
 
@@ -40,13 +40,13 @@ export default class nativeModuleTest extends Component {
     Tts.voices().then(voices => console.log(voices));
     try{
         //More Locales will be available upon release.
-        if (this.state.languageFrom === 'France') {
+        if (this.state.languageFrom === 'fr') {
           var spokenText = await SpeechAndroid.startSpeech("Speak yo", SpeechAndroid.FRANCE);
           this.setState({notes: spokenText})
-        } else if (this.state.languageFrom === 'Chinese') {
+        } else if (this.state.languageFrom === 'zh-cn') {
           var spokenText = await SpeechAndroid.startSpeech("Speak yo", SpeechAndroid.CHINESE);
           this.setState({notes: spokenText})
-        } else if (this.state.languageFrom === 'English') {
+        } else if (this.state.languageFrom === 'en') {
           var spokenText = await SpeechAndroid.startSpeech("Speak yo", SpeechAndroid.ENGLISH);
           this.setState({notes: spokenText})
         } else {
@@ -54,19 +54,32 @@ export default class nativeModuleTest extends Component {
           this.setState({notes: spokenText})
         }
 
-        if (this.state.languageTo === 'France') {
-          Tts.setDefaultLanguage('fr-FR');
-          Tts.speak(this.state.notes);
-        } else if (this.state.languageTo === 'Chinese') {
-          Tts.setDefaultLanguage('zh-CN');
-          Tts.speak(this.state.notes);
-        } else if (this.state.languageTo === 'Indonesian') {
-          Tts.setDefaultLanguage('in-ID');
-          Tts.speak(this.state.notes);
-        } else {
-          Tts.setDefaultLanguage('en-IE');
-          Tts.speak(this.state.notes);
-        }
+        const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${this.state.languageFrom}&tl=${this.state.languageTo}&dt=t&q=${this.state.notes}`;
+
+        fetch(url)
+          .then((response) => response.json())
+          .then((data) => {
+            const resultText = data.length > 0 ? data[0][0][0] : ''; 
+
+            console.log('translated: ', resultText)
+
+            if (this.state.languageTo === 'fr') {
+              Tts.setDefaultLanguage('fr-FR');
+              Tts.speak(resultText);
+            } else if (this.state.languageTo === 'zh-cn') {
+              Tts.setDefaultLanguage('zh-CN');
+              Tts.speak(resultText);
+            } else if (this.state.languageTo === 'id') {
+              Tts.setDefaultLanguage('in-ID');
+              Tts.speak(resultText);
+            } else {
+              Tts.setDefaultLanguage('en-IE');
+              Tts.speak(resultText);
+            }
+          })
+          .catch((error) => {
+            console.error(error);
+          });
 
       } catch(error){
         switch(error){
@@ -85,8 +98,6 @@ export default class nativeModuleTest extends Component {
   }
 
   render() {
-    console.log('from', this.state.languageFrom)
-    console.log('to', this.state.languageTo)
     return (
       <View style={{flex: 1}}>
         <View style={{flex:1, justifyContent: 'space-between', paddingBottom: 50, paddingTop: 30, paddingLeft: 30, paddingRight: 30}}>
@@ -99,10 +110,10 @@ export default class nativeModuleTest extends Component {
                 onValueChange={(itemValue, itemIndex) => this.setState({languageFrom: itemValue})}
                 mode="dropdown"
               >
-                <Picker.Item label="Indonesian" value="Indonesian" />
-                <Picker.Item label="Chinese" value="Chinese" />
-                <Picker.Item label="English" value="English" />
-                <Picker.Item label="France" value="France" />
+                <Picker.Item label="Indonesian" value="id" />
+                <Picker.Item label="Chinese" value="zh-cn" />
+                <Picker.Item label="English" value="en" />
+                <Picker.Item label="France" value="fr" />
               </Picker>  
             </View>
           </View>
@@ -116,10 +127,10 @@ export default class nativeModuleTest extends Component {
                 onValueChange={(itemValue, itemIndex) => this.setState({languageTo: itemValue})}
                 mode="dropdown"
               >
-                <Picker.Item label="Indonesian" value="Indonesian" />
-                <Picker.Item label="Chinese" value="Chinese" />
-                <Picker.Item label="English" value="English" />
-                <Picker.Item label="France" value="France" />
+                <Picker.Item label="Indonesian" value="id" />
+                <Picker.Item label="Chinese" value="zh-cn" />
+                <Picker.Item label="English" value="en" />
+                <Picker.Item label="France" value="fr" />
               </Picker>  
             </View>
           </View>
