@@ -61,8 +61,6 @@ export default class nativeModuleTest extends Component {
           .then((data) => {
             const resultText = data.length > 0 ? data[0][0][0] : ''; 
 
-            console.log('translated: ', resultText)
-
             if (this.state.languageTo === 'fr') {
               Tts.setDefaultLanguage('fr-FR');
               Tts.speak(resultText);
@@ -102,7 +100,7 @@ export default class nativeModuleTest extends Component {
       <View style={{flex: 1}}>
         <View style={{flex:1, justifyContent: 'space-between', paddingBottom: 50, paddingTop: 30, paddingLeft: 30, paddingRight: 30}}>
           <View>
-            <Text>From : </Text>
+            <Text>From</Text>
             <View style={{ alignItems:'center'}}>
               <Picker
                 selectedValue={this.state.languageFrom}
@@ -119,7 +117,7 @@ export default class nativeModuleTest extends Component {
           </View>
           
           <View>
-            <Text>To : </Text>
+            <Text>To</Text>
             <View style={{ alignItems:'center'}}>
               <Picker
                 selectedValue={this.state.languageTo}
@@ -141,7 +139,7 @@ export default class nativeModuleTest extends Component {
             </TouchableOpacity>
           </View>
           <View>
-            <Button style={{borderRadius: 10}} onPress={() => this.handleSpeech()} title={'Detail'}/>
+            <Button style={{borderRadius: 10}} onPress={() => console.log('Button Pressed')} title={'Detail'}/>
           </View>
         </View>
       </View>
